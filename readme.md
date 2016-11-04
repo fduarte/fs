@@ -1,21 +1,23 @@
-##Vagrant instalation:
+## Vagrant instalation:
 
 Note on Error while attempting to mount NFS synced folders:
 
-vagrant NFS requires a host-only network to be created. Please add a host-only network to the machine (with either DHCP or a static IP) for NFS to work.
+    "vagrant NFS requires a host-only network to be created. Please add a host-only network to the machine (with either DHCP or a static IP) for NFS to work."
 
-- Temporary solution: Removed NFS
+Temporary solution: Removed NFS
 
 ## Install LAMP stack for PHP7:
 https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04
 
 ## Laravel Pre-Reqs:
+
     apt install php7.0-zip
     sudo apt-get install php7.0-mbstring
     sudo apt-get install php-xml
+    sudo a2enmod rewrite
 
 ## Install/Configure Laravel 5.3:
-https://laravel.com/docs/5.3/installation
+[https://laravel.com/docs/5.3/installation](https://laravel.com/docs/5.3/installation)
 
 ## Note on MySQL remote connections:
 I like not having mysql passwords locally. So during the mysql-server setup, I chose a blank password. Turns out this triggers a mysql plugin to kick in and you won't be able to use mysql with your vagrant user. Not sure if this is unique to the latest Ubuntu version, but I don't think it happened in 12.x
@@ -33,13 +35,18 @@ Source: http://askubuntu.com/a/801950
 
 4. Now connecting from Sequel Pro goes as usual:
 
-    MySQL Host: 127.0.0.1
-    Username: root
-    Password:
-    Database:
-    Port:
-    SSH Host: 192.168.59.76
-    SSH User: vagrant
-    SSH Key: ~/.vagrant.d/insecure_private_key
+    MySQL Host: 127.0.0.1 <br>
+    Username: root <br>
+    Password:<br>
+    Database:<br>
+    Port:<br>
+    SSH Host: 192.168.59.76<br>
+    SSH User: vagrant<br>
+    SSH Key: ~/.vagrant.d/insecure_private_key<br>
 
+## DB Migrations
+
+From within the app dir, run:
+
+    php artisan migrate
 
