@@ -18,7 +18,7 @@ class PersonController extends Controller
     }
 
     /**
-     * This method is in charge of validating/saving the person to the db
+     * This method is in charge of validating/saving a new person to the db
      *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
@@ -52,7 +52,7 @@ class PersonController extends Controller
     }
 
     /**
-     * Update person
+     * Update existing person record, with validation
      *
      * @param Request $request
      * @param $id
