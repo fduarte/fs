@@ -22,4 +22,14 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+    /**
+     * Seed DB with fake data
+     *
+     */
+    public function seedDb()
+    {
+        $ds = new DatabaseSeeder();
+        $ds->run();
+    }
 }
