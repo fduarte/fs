@@ -103,7 +103,7 @@ Source: http://askubuntu.com/a/801950
 
 4. Now connecting from Sequel Pro goes as usual:
 
-
+    ```
     MySQL Host: 127.0.0.1
     Username: root
     Password:
@@ -112,6 +112,7 @@ Source: http://askubuntu.com/a/801950
     SSH Host: 192.168.59.76
     SSH User: vagrant
     SSH Key: ~/.vagrant.d/insecure_private_key
+    ```
 
 
 The steps above should conclude the installation of this app.
