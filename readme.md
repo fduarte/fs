@@ -11,8 +11,8 @@
 2. After cloning this repo, configure it by running:
 
     ```
-    composer update<br>
-    sudo chgrp -R www-data storage bootstrap/cache<br>
+    composer update
+    sudo chgrp -R www-data storage bootstrap/cache
     sudo chmod -R ug+rwx storage bootstrap/cache
     ```
 
