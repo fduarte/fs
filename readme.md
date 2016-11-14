@@ -2,76 +2,82 @@
 
 1. A LAMP installer bash script is located at 'install/lamp-install.sh'. It installs everything needed for this app to run.
 
-From the cli run:
+    From the cli, run:
 
-
+    ```
     sudo ./install/lamp-install.sh
-
+    ```
 
 2. After cloning this repo, configure it by running:
 
-
+    ```
     composer update<br>
     sudo chgrp -R www-data storage bootstrap/cache<br>
     sudo chmod -R ug+rwx storage bootstrap/cache
+    ```
 
 
 3. Your vhost should look something like this:
 
+    ```
+    <VirtualHost *:80>
+        ServerAdmin fredduarte@gmail.com
+        ServerName www.fs.freddyduarte.com
+        ServerAlias fs.freddyduarte.com
 
-    <VirtualHost *:80><br>
-        ServerAdmin fredduarte@gmail.com<br>
-        ServerName www.fs.freddyduarte.com<br>
-        ServerAlias fs.freddyduarte.com<br><br>
-
-        DocumentRoot /var/www/fs/public<br>
-        <Directory "/var/www//fs/public"><br>
-            AllowOverride All<br>
-        </Directory><br>
+        DocumentRoot /var/www/fs/public
+        <Directory "/var/www//fs/public">
+            AllowOverride All
+        </Directory>
     </VirtualHost>
+    ```
 
 
 4. Your '.env' file (located in the app's root) should look something like this:
 
 
-    APP_ENV=production<br>
-    APP_KEY=base64:MrsNlt8fGSnCmrWU122BtjgFxsIVumOqFCCAf9I2MJQ=<br>
-    APP_DEBUG=false<br>
-    APP_LOG_LEVEL=debug<br>
-    APP_URL=http://fs.freddyduarte.com<br><br>
+    ```
+    APP_ENV=production
+    APP_KEY=base64:MrsNlt8fGSnCmrWU122BtjgFxsIVumOqFCCAf9I2MJQ=
+    APP_DEBUG=false
+    APP_LOG_LEVEL=debug
+    APP_URL=http://fs.freddyduarte.com
 
-    DB_CONNECTION=mysql<br>
-    DB_HOST=127.0.0.1<br>
-    DB_PORT=3306<br>
-    DB_DATABASE=fs<br>
-    DB_USERNAME=root<br>
-    DB_PASSWORD=<br><br>
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=fs
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-    BROADCAST_DRIVER=log<br>
-    CACHE_DRIVER=file<br>
-    SESSION_DRIVER=file<br>
-    QUEUE_DRIVER=sync<br><br>
+    BROADCAST_DRIVER=log
+    CACHE_DRIVER=file
+    SESSION_DRIVER=file
+    QUEUE_DRIVER=sync
 
-    REDIS_HOST=127.0.0.1<br>
-    REDIS_PASSWORD=null<br>
-    REDIS_PORT=6379<br><br>
+    REDIS_HOST=127.0.0.1
+    REDIS_PASSWORD=null
+    REDIS_PORT=6379
 
-    MAIL_DRIVER=smtp<br>
-    MAIL_HOST=mailtrap.io<br>
-    MAIL_PORT=2525<br>
-    MAIL_USERNAME=null<br>
-    MAIL_PASSWORD=null<br>
-    MAIL_ENCRYPTION=null<br><br>
+    MAIL_DRIVER=smtp
+    MAIL_HOST=mailtrap.io
+    MAIL_PORT=2525
+    MAIL_USERNAME=null
+    MAIL_PASSWORD=null
+    MAIL_ENCRYPTION=null
 
-    PUSHER_APP_ID=<br>
-    PUSHER_KEY=<br>
+    PUSHER_APP_ID=
+    PUSHER_KEY=
     PUSHER_SECRET=
-    
+    ```
+
 
 5. Create a MySQL DB called 'fs' (or whatever you defined in .env) and execute the migrations by running:
 
 
+    ```
     php artisan migrate
+    ```
 
 
 ## Note on MySQL (remote) connections:
@@ -89,7 +95,7 @@ Source: http://askubuntu.com/a/801950
 
 1. sudo mysql -uroot
 
-2. ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
+2. ``` ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY ''; ```
 
 3. You might have to update the 'bind-address' field in your my.cnf file to allow remote connections. In Ubuntu 16.x that file is at: /etc/mysql/mysql.conf.d/mysqld.cnf
 
