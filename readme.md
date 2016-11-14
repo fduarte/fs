@@ -1,28 +1,86 @@
-## Vagrant instalation:
+## Installation for Ubuntu 16.06
 
-Note on Error while attempting to mount NFS synced folders:
+1. A LAMP installer bash script is located at 'install/lamp-install.sh'. It installs everything needed for this app to run.
 
-    "vagrant NFS requires a host-only network to be created. Please add a host-only network to the machine (with either DHCP or a static IP) for NFS to work."
+From the cli run:
 
-Temporary solution: Removed NFS
 
-## Install LAMP stack for PHP7:
-https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04
+    sudo ./install/lamp-install.sh
 
-## Laravel Pre-Reqs:
+2. After cloning this repo, configure it by running:
 
-    apt install php7.0-zip
-    sudo apt-get install php7.0-mbstring
-    sudo apt-get install php-xml
-    sudo a2enmod rewrite
 
-## Install/Configure Laravel 5.3:
-[https://laravel.com/docs/5.3/installation](https://laravel.com/docs/5.3/installation)
+    composer update
+    sudo chgrp -R www-data storage bootstrap/cache
+    sudo chmod -R ug+rwx storage bootstrap/cache
 
-## Note on MySQL remote connections:
+3. Your vhost should look something like this:
+
+
+    <VirtualHost *:80>
+        ServerAdmin fredduarte@gmail.com
+        ServerName www.fs.freddyduarte.com
+        ServerAlias fs.freddyduarte.com
+
+        DocumentRoot /var/www/fs/public
+        <Directory "/var/www//fs/public">
+            AllowOverride All
+        </Directory>
+    </VirtualHost>
+
+4. Your '.env' file (located in the app's root) should look something like this:
+
+
+    APP_ENV=production
+    APP_KEY=base64:MrsNlt8fGSnCmrWU122BtjgFxsIVumOqFCCAf9I2MJQ=
+    APP_DEBUG=false
+    APP_LOG_LEVEL=debug
+    APP_URL=http://fs.freddyduarte.com
+
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=fs
+    DB_USERNAME=root
+    DB_PASSWORD=
+
+    BROADCAST_DRIVER=log
+    CACHE_DRIVER=file
+    SESSION_DRIVER=file
+    QUEUE_DRIVER=sync
+
+    REDIS_HOST=127.0.0.1
+    REDIS_PASSWORD=null
+    REDIS_PORT=6379
+
+    MAIL_DRIVER=smtp
+    MAIL_HOST=mailtrap.io
+    MAIL_PORT=2525
+    MAIL_USERNAME=null
+    MAIL_PASSWORD=null
+    MAIL_ENCRYPTION=null
+
+    PUSHER_APP_ID=
+    PUSHER_KEY=
+    PUSHER_SECRET=
+
+5. Create a MySQL DB called 'fs' (or whatever you defined in .env) and execute the migrations by running:
+
+
+    php artisan migrate
+
+
+## Note on MySQL (remote) connections:
 I like not having mysql passwords locally. So during the mysql-server setup, I chose a blank password. Turns out this triggers a mysql plugin to kick in and you won't be able to use mysql with your vagrant user. Not sure if this is unique to the latest Ubuntu version, but I don't think it happened in 12.x
 
+You may see this error while running the migrations:
+
+
+    SQLSTATE[HY000] [1698] Access denied for user 'root'@'localhost'
+
+
 The following fixes the issue and removes any password preset by the plugin:
+
 Source: http://askubuntu.com/a/801950
 
 1. sudo mysql -uroot
@@ -35,18 +93,32 @@ Source: http://askubuntu.com/a/801950
 
 4. Now connecting from Sequel Pro goes as usual:
 
-    MySQL Host: 127.0.0.1 <br>
-    Username: root <br>
-    Password:<br>
-    Database:<br>
-    Port:<br>
-    SSH Host: 192.168.59.76<br>
-    SSH User: vagrant<br>
-    SSH Key: ~/.vagrant.d/insecure_private_key<br>
 
-## DB Migrations
+    MySQL Host: 127.0.0.1
+    Username: root
+    Password:
+    Database:
+    Port:
+    SSH Host: 192.168.59.76
+    SSH User: vagrant
+    SSH Key: ~/.vagrant.d/insecure_private_key
 
-From within the app dir, run:
 
-    php artisan migrate
+The steps above should conclude the installation of this app in Ubuntu 16.06
+
+#### Local Vagrant instalation:
+
+Note on Error while attempting to mount NFS synced folders:
+
+    "vagrant NFS requires a host-only network to be created. Please add a host-only network to the machine (with either DHCP or a static IP) for NFS to work."
+
+Temporary solution: Removed NFS
+
+#### Digital Ocean Install LAMP stack for PHP7:
+
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04
+
+#### Install/Configure Laravel 5.3:
+
+[https://laravel.com/docs/5.3/installation](https://laravel.com/docs/5.3/installation)
 
