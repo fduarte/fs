@@ -1,4 +1,4 @@
-## Installation for Ubuntu 16.06
+## Installation for Ubuntu 16.04
 
 1. A LAMP installer bash script is located at 'install/lamp-install.sh'. It installs everything needed for this app to run.
 
@@ -10,23 +10,24 @@ From the cli run:
 2. After cloning this repo, configure it by running:
 
 
-    composer update
-    sudo chgrp -R www-data storage bootstrap/cache
+    composer update<br>
+    sudo chgrp -R www-data storage bootstrap/cache<br>
     sudo chmod -R ug+rwx storage bootstrap/cache
 
 3. Your vhost should look something like this:
 
+    <code>
+    <VirtualHost *:80><br>
+        ServerAdmin fredduarte@gmail.com<br>
+        ServerName www.fs.freddyduarte.com<br>
+        ServerAlias fs.freddyduarte.com<br><br>
 
-    <VirtualHost *:80>
-        ServerAdmin fredduarte@gmail.com
-        ServerName www.fs.freddyduarte.com
-        ServerAlias fs.freddyduarte.com
-
-        DocumentRoot /var/www/fs/public
-        <Directory "/var/www//fs/public">
-            AllowOverride All
-        </Directory>
+        DocumentRoot /var/www/fs/public<br>
+        <Directory "/var/www//fs/public"><br>
+            AllowOverride All<br>
+        </Directory><br>
     </VirtualHost>
+    </code>
 
 4. Your '.env' file (located in the app's root) should look something like this:
 
@@ -104,7 +105,7 @@ Source: http://askubuntu.com/a/801950
     SSH Key: ~/.vagrant.d/insecure_private_key
 
 
-The steps above should conclude the installation of this app in Ubuntu 16.06
+The steps above should conclude the installation of this app.
 
 #### Local Vagrant instalation:
 
