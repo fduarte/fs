@@ -3,10 +3,11 @@
 Vagrant.require_version ">= 1.8.6"
 
 VAGRANT_API_VERSION = "2"
-GUEST_HOSTNAME = "testbox.dev"
+GUEST_HOSTNAME = "fs.dev"
 GUEST_NETWORK_IP = "192.168.59.76"
 GUEST_MEMORY_LIMIT = "1024"
 GUEST_CPU_LIMIT = "1"
+GUEST_DIRECTORY = "/var/www/fs"
 
 #########################################################
 # You shouldn't have to modify anything below this line #
@@ -28,16 +29,9 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     # forward agent for ansible access
     config.ssh.forward_agent = true
 
-    config.vm.synced_folder "./", "/var/www", :owner => 'www-data', :group => 'www-data'
+    config.vm.synced_folder "./", GUEST_DIRECTORY, :owner => 'www-data', :group => 'www-data'
 
-    config.vm.provision "shell", inline: <<-SHELL
-        apt-get update
-        apt-get install -y -qq ansible git
-        ssh -T git@github.com -o StrictHostKeyChecking=no
-        PYTHONUNBUFFERED=1 ansible-pull \
-            --url=git@github.com:formstack/server-playbooks-devtest.git \
-            --inventory-file inventories/localhost \
-            dev-standalone.yml
-    SHELL
+    config.vm.provision "shell", path: "install/lamp-install.sh"
 
 end
+

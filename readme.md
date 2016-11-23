@@ -1,3 +1,27 @@
+## Instalation
+
+0. Prerequisites: Vagrant >= 1.8.6 + Virtual Box >= 5.1
+
+1. Clone this repo
+
+2. Configure your hosts file to include the following line. Both of these values are configurable in Vagrantfile and install/lamp-install.sh
+
+    ```
+    192.168.59.76 fs.dev
+    ```
+
+3. This step may take a while, depending on whether you have the needed bento/ubuntu-16.04 image already cached with vagrant.
+
+    Run:
+
+    ```
+    vagrant up
+    ```
+
+4. You're done! Point your browser to fs.dev
+
+# Old Installation notes
+
 ## Installation for Ubuntu 16.04
 
 1. A LAMP installer bash script is located at 'install/lamp-install.sh'. It installs everything needed for this app to run.
